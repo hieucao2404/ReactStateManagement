@@ -1,0 +1,174 @@
+import { useState } from "react";
+
+// const initialItems = [
+//   { id: 1, description: "Passports", quantity: 2, packed: false },
+//   { id: 2, description: "Socks", quantity: 12, packed: false },
+// ];
+
+export default function App() {
+  const [items, setItems] = useState([]);
+
+  function handleAddItems(item) {
+    setItems((items) => [...items, item]);
+  }
+
+  function handleDeleteItem(id) {
+    console.log(id);
+    setItems((items) => items.filter((item) => item.id !== id));
+  }
+
+  function handleToggleItem(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+    console.log(items);
+  }
+
+  function handleDeleteAllItems() {
+    const confirmed = window.confirm(
+      items.length > 0 ?
+    "Are you sure you want to delete all items?" : "Nothing in your list" );
+
+    if (confirmed) setItems([]);
+  }
+
+  return (
+    <div className="app">
+      <Logo />
+      <Form onAdditems={handleAddItems} />
+      <PackingList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        onToggleItem={handleToggleItem}
+        onDeleteAll={handleDeleteAllItems}
+      />
+      <Stats items={items} />
+    </div>
+  );
+}
+
+function Logo() {
+  return <h1> Far Away </h1>;
+}
+
+function Form({ onAdditems, onDeleteItem }) {
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!description) return;
+
+    const newItem = { description, quantity, packed: false, id: Date.now() };
+    console.log(newItem);
+    onAdditems(newItem);
+    setDescription("");
+    setQuantity(1);
+  }
+
+  return (
+    <form className="add-form" onSubmit={handleSubmit}>
+      <h3>What do you need for your :love_you_gesture: trip</h3>
+      <select
+        name="quantity"
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+      >
+        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+          <option value={num} key={num}>
+            {num}
+          </option>
+        ))}
+      </select>
+      <input
+        name="description"
+        type="text"
+        placeholder="Item..."
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <button>Add</button>
+    </form>
+  );
+}
+
+function PackingList({ items, onDeleteItem, onToggleItem, onDeleteAll }) {
+  const [sortBy, setSortBy] = useState("input");
+
+  let sortedItems;
+
+  if (sortBy === "input") sortedItems = items;
+
+  if (sortBy === "description")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+
+  if (sortBy === "packed")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
+  return (
+    <div className="list">
+      <ul className="list">
+        {sortedItems.map((item) => (
+          <Item
+            item={item}
+            onDeleteItem={onDeleteItem}
+            onToggleItem={onToggleItem}
+            key={item.id}
+          />
+        ))}
+      </ul>
+
+      <div className="action">
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="input">Sort by input order</option>
+          <option value="description">Sort by ds</option>
+          <option value="packed">Sort by packed status</option>
+        </select>
+        <button onClick={onDeleteAll}>Clear list</button>
+      </div>
+    </div>
+  );
+}
+
+function Stats({ items }) {
+  if (!items.length)
+    return (
+      <p className="stats">
+        <em>Adding some items to your list</em>
+      </p>
+    );
+  const numItems = items.length;
+  const numPacked = items.filter((item) => item.packed).length;
+  const percentage = Math.round((numPacked / numItems) * 100);
+  return (
+    <footer className="stats">
+      <em>
+        {percentage === 100
+          ? "You got everything packed"
+          : `You have ${numItems} items on your list, and you already pack ${numPacked}(${percentage}%)`}
+      </em>
+    </footer>
+  );
+}
+
+function Item({ item, onDeleteItem, onToggleItem }) {
+  return (
+    <li>
+      <input
+        type="checkbox"
+        value={item.packed}
+        onChange={() => onToggleItem(item.id)}
+      />
+      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
+        {item.quantity} {item.description}
+      </span>
+      <button onClick={() => onDeleteItem(item.id)}>DELETE</button>
+    </li>
+  );
+}

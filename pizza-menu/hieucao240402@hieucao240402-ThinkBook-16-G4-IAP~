@@ -1,0 +1,63 @@
+I/ RENDERING LISTS
+	1. Rendering data from arrays
+	- Move the data into an array;
+	const var = [...];
+	- Map the var memeber into a new array of JSX nodes(listItems):
+	const listItems = var.map(var => <li>{}</li>)
+	- Return listItem from your component wrapped in a <ul>
+
+	2. Filtering arrays of items
+	 - Create a new array of just "wanted" element, by calling filter() on the var filtering by var.attribute === 'wanted'
+	 const wanted = var.filter(var => var.attrivute === 'wanted')
+	 );
+	 - Now map over 'wanted'
+	 const listItems = chemists.map(person =>
+	 <li>
+	  <img
+	   src={img(person)}
+	   alt ={var.name}
+	   />
+	   <p>
+	   <b>{var.name}:</b>
+	   {'' + var.attrivute + ' '}
+	   known for {var.attribute}
+	   </p>
+	   </li>
+	   );
+	  - Lastl, return the listItem from component
+	  return <ul>{listItems}</ul>;
+
+	3. Keeping list items in order with key
+	- You ned to give each array item a key - a string or a number of uniquely identities it among other items in that array:
+	<li key={person.id}>...</li>
+	NOTE: JSX elements directly inside a map() call always need keys!
+
+	- Keys tell reacct whichs array item each compent corresponds to, so that it can match them up later. 
+	- A well chose key helps React infer what exacly has heppend, amke the correct, updates to the DOM tree
+
+	Where to get your keys
+	 - Data from a databaseL use the database keys/IDs, unique by nature
+	 - Locally generated data: use a incrementing counter, crypto.randomUUID()
+
+	 Rules of keys
+	  - Key must be unique among siblings
+	  - Key must not chagge! Do not generat while rendering
+
+II/ Conditional Rendering 
+	Your components will ofter need to display different things depending on different conditions
+	1. Conditionally returning JSX
+	- Some of the elements component have their boolean prop set to true instead of false. You can write this as an if/else to return what you want based on the condition of boolean
+	- If the boolean prrp is true, the code returns a different JSX tree. With this change
+	I React control flow is handled by JS
+
+	2. Conditionally returning nothing with null
+	- In some situations, you wont want to reder anything at all. For example, say you dont want to show packed items at all. A component must return something
+
+	if(isBoolean) {
+	return null;
+	}
+	return <li className="item">{name}</li>;
+
+	2/ Conditionally including JSX
+	}
+	
