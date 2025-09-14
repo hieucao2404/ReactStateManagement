@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+React Flashcards App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple React flashcards app that helps users learn key React concepts interactively. Each card displays a question, and when clicked, it reveals the answer. Clicking again hides the answer.
 
-## Available Scripts
+🚀 Features
 
-In the project directory, you can run:
+Displays flashcards with questions & answers.
 
-### `npm start`
+Click on a card to toggle between the question and answer.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Only one card can be selected at a time.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Uses React Hooks (useState) for state management.
 
-### `npm test`
+Simple and responsive UI with custom CSS styling.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+📂 Project Structure
+src/
+├── App.js         # Main application entry
+├── style.css      # Styles for flashcards
+└── index.js       # ReactDOM render setup
 
-### `npm run build`
+🛠️ Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+React (functional components + hooks)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+JavaScript (ES6+)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+CSS for styling
 
-### `npm run eject`
+💡 Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Open the app.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You’ll see a list of flashcards with questions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Click a card → it flips to show the answer.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Click again → it flips back to the question.
 
-## Learn More
+📖 Example Flashcards
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+What language is React based on? → JavaScript
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+What are the building blocks of React apps? → Components
 
-### Code Splitting
+How to pass data from parent to child? → props
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+How to give components memory? → useState hook
 
-### Analyzing the Bundle Size
+🎯 Learning Objectives
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Practice state management with useState.
 
-### Making a Progressive Web App
+Learn how to conditionally render content in React.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Understand how to handle click events in React.
