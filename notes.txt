@@ -1,0 +1,265 @@
+I/ RENDERING LISTS
+	1. Rendering data from arrays
+	- Move the data into an array;
+	const var = [...];
+	- Map the var memeber into a new array of JSX nodes(listItems):
+	const listItems = var.map(var => <li>{}</li>)
+	- Return listItem from your component wrapped in a <ul>
+
+	2. Filtering arrays of items
+	 - Create a new array of just "wanted" element, by calling filter() on the var filtering by var.attribute === 'wanted'
+	 const wanted = var.filter(var => var.attrivute === 'wanted')
+	 );
+	 - Now map over 'wanted'
+	 const listItems = chemists.map(person =>
+	 <li>
+	  <img
+	   src={img(person)}
+	   alt ={var.name}
+	   />
+	   <p>
+	   <b>{var.name}:</b>
+	   {'' + var.attrivute + ' '}
+	   known for {var.attribute}
+	   </p>
+	   </li>
+	   );
+	  - Lastl, return the listItem from component
+	  return <ul>{listItems}</ul>;
+
+	3. Keeping list items in order with key
+	- You ned to give each array item a key - a string or a number of uniquely identities it among other items in that array:
+	<li key={person.id}>...</li>
+	NOTE: JSX elements directly inside a map() call always need keys!
+
+	- Keys tell reacct whichs array item each compent corresponds to, so that it can match them up later. 
+	- A well chose key helps React infer what exacly has heppend, amke the correct, updates to the DOM tree
+
+	Where to get your keys
+	 - Data from a databaseL use the database keys/IDs, unique by nature
+	 - Locally generated data: use a incrementing counter, crypto.randomUUID()
+
+	 Rules of keys
+	  - Key must be unique among siblings
+	  - Key must not chagge! Do not generat while rendering
+
+II/ Conditional Rendering 
+	Your components will ofter need to display different things depending on different conditions
+	1. Conditionally returning JSX
+	- Some of the elements component have their boolean prop set to true instead of false. You can write this as an if/else to return what you want based on the condition of boolean
+	- If the boolean prrp is true, the code returns a different JSX tree. With this change
+	I React control flow is handled by JS
+
+	2. Conditionally returning nothing with null
+	- In some situations, you wont want to reder anything at all. For example, say you dont want to show packed items at all. A component must return something
+
+	if(isBoolean) {
+	return null;
+	}
+	return <li className="item">{name}</li>;
+
+	2/ Conditionally including JSX
+	}
+
+III/ Conditional Rendering With Multiple Returns
+	- Only use when want to return a JS in a certain condition
+
+IV/ Destructuring Props
+	- Avoid typing props.... all the time -> We do it with destructuring
+
+V/ React Fragment
+	- JSX piece: No matter where it is defined can only have one root element
+	- React fragment can help us group elements without any traits
+
+VI/ Setting classes and Text conditionally
+	
+REVIEW: 
+	- Components are the buidldin of user interface
+	- Eeach component include data, js logic, Apprearance: JSX
+	- JSX block is what we return from a components
+		+ "HTML"
+		+ CSS
+		+ JS inside {} (entering js mode)
+
+	- Component tree: the one above is the parent of the lower
+		+ App is the parent of Header, Body, Footer
+		+ Parent can pass data to child using props(property)
+		+ Using props we can configure component as we wish
+		+ Props can only pass down on the tree
+
+	- Rendering  multiple components  at once using JS map() method
+
+	- Conditional Rendering: Components can be conditionally redered using JS tools: &&, ?, and multiple return
+
+
+SECTION: ADDING INTERACTIVITY
+ 	VII/ Responding to Events
+ 	- React lets you add event handlers to your JSX.
+ 	- Events handlers are your own functions that will be triggered in response to interactions like clicking, hovering, focusing form inputs, and so on
+
+ 	1. Different ways to write event handler
+ 	2. How to pass event handling login from a parent componet
+ 	3. How events propagate and how to stop them
+
+ 		1. Adding events handlers
+ 		- To add an event handler, you will first define a function and the pass in as a prop to approriate JSX tag.
+
+ 		export default function Button() {
+ 		function handleClick() {
+ 			alert('fadfd');
+ 		}
+ 		return (
+ 		<button onClick={handleClick}>
+ 		Click me</button>
+ 		);
+ 		}
+
+ 		- Steps 
+ 		 + Declare a function called handleClick inside your button component
+ 		 + Implement the logic inside that function(use alert to show the message).
+ 		 + Add onClick={handleClick} to the <button> JSX
+
+ 		- You defined the handleClick function and the passed it as a prop to <button>. handleClick is an event handler. Event handler functions:
+ 		 + Are usually defined inside your componets
+ 		 +  Have name that start with handle, followed by the name of the event
+
+ 		2. Reading props in event handlers
+ 		- Because event andelrs are declared insdide of a component, they have access to the components'props'. There is a button that, when clicked, shows an alert with its message prop:
+
+ 		function AlertButton({message, childeren}) {
+ 		return (
+ 		<button onClick={() => alert(message)}>{
+ 		children}
+ 		</button>
+ 		);
+ 		}
+
+ 		export default function Toolbar() {
+ 		 return (
+ 		  <div>
+ 		   <AlertButton message="Playing!">
+ 		   Play Movie
+ 		   </AlertButton>
+ 		   <AlertButton message="Uploading!">
+ 		   Upload Image
+ 		   </AlertButton>
+ 		);
+ 		}
+
+ 		3. Passing event handelrs as props
+ 		- Often yoy'll want  the parent componen to specify a child's even handler. Consider buttons: depending on where you're using a Button component, you migh want to execute a different function
+ 		
+ 		function Button({onClick, children}){
+ 		 return (
+ 		   <button onClick={onClick}>
+ 		   	{children}
+ 		   </button>
+ 		   );
+ 		}
+
+ 		function PlayButton({movieName}) {
+ 		function handlePlayClick() {
+ 		alert(`Playing ${movieName}!`);
+ 		}
+
+ 		return (
+ 		 <Button onClick={handlePlayClick}>
+ 		 Play "{movieName}"
+ 		 </Button>
+ 		);
+ 		}
+
+ 		function UploadButton() {
+ 		return (
+ 			<Button onClick={() => alert('Uploading!')}>
+ 			Upload Image
+ 			</Button>
+ 		);
+ 		}
+
+ 		export default function Toolbar() {
+ 		return (
+ 		<div>
+ 		 <PlayButton movieName="Kiki's Delivery Service" />
+ 		 <UploadButton />
+ 		 </div>
+ 		 );
+ 		}
+
+ 		4. Naming even handler props
+ 		- Built-in components like <button> and <div> only support browser event names like onClick. However, when you're building your own components , you can name their even handler props any way that you like
+ 		- By convention, event handler props should start with on, followed by a capital letter.
+
+ 		5. Eventn Propagation
+ 		- Event handlers will also catch events from any children your component might have. We say that an event "bubbles" or "propagates" up the tree: it starts with where the event happened,and then goes up the tree.
+ 		This <div> contains two buttons. Both the <div> and each button have theri own onClick handlers
+
+ 		export default function Toolbar() {
+ 		return (
+ 			<div className="Toolbar" onClick={() => {alert('you click onthe tool bar!');
+ 			}}>
+ 			<button onClick={() => alert ('Playing!')}
+ 			Play Movie
+ 			</button>
+ 			<button onClick={() => alert('Uploading!')}>
+ 			Upload Image
+ 			</button>
+ 			</div>
+ 		)
+ 		}
+
+
+VII/ State: A Component's Memory
+	Component often need to change what's on the screen sa a result of an interaction. Typing into the form should update the input field, clicking "next" on an image carousel should change which iamge is displayed, clicking "buy" should put a product in the shopping cart. Components need to "remember" things: the current input value, the current image, the shopping car
+
+	1. Whena regular variable in not enough
+	- Here's a component that renders a sculpture image. Clicking the "Next" button should show the next sculture by changing the index to 1 the 2 and so on.
+
+	- The handlerClick event hadnler ins updating a local variable. But two things prevent that change from being visible:
+	  + Local variables do not persist between renders: When React reders this componets a second time, it reders it fro scratch --- it does not consider any changes to the local variable
+	  + Changes to local variabsles wont trigger renders. React does not ralize it nedds to render the componet again with the new data
+
+	- To upda ta a component with new data, two things need to happen:
+	 + Retain the data between renders.
+	 + Trigger React to renders the componet with new data (re-redering).
+
+	- the useStatek Hook provides those two things:
+	 + A state variable to retain the data between reders
+	 + A state setter function to update the variable and trigger React to render the componet again.
+
+
+	2. Adding a state variable
+	 - Import useState from React
+	  import { useState } from 'react';
+
+	 - Replace with 
+	 	const[index, setIndex] = useState(0);
+
+	 Index is a state variable and setIndex is the setter function
+
+	3. Meet your first Hook
+	 In React, useState, as well as any other function starting with "use" is called a Hook.
+	 - Hooks are special functions that only available while React is rendering ( which we'll get into in more detail on the next page). They let you "hook into" different React features
+
+
+	4. Anatomy of useState
+	 - When you call useState, you are telling React that you want this component to remerber something:
+	  const [index, setIndex] = useState(0);
+
+	  In this case yoy want React to remember index
+
+	  const[something, setSomething].
+
+	  + Your component reders the first time. Because you passed 0 to useState as the initial value for index, it will return [0, setIndex]. React remembers 0 is the latest state value.
+	  + You update the state. When a user clicks the button, it calls setIndex(index + 1).index is 0, so its setIndex(1). This tells React ot remember index is 1 now and trgger another render
+	  + Your component's second render. React still sees useState(0), but because React remembers that you set index to 1, it returns [1, setIndex] instead
+	  + So on!
+
+	5. Giving a component multiple state variables
+	 - It is a good idea to have multiple state variables if their state values is unrelated
+	 - But if you find that you often change two state variables together, so dont
+
+	6. State is isolated and private
+	 - State is local to a component instance on the screen. In other words, if you reder the same component twice, each copy will have completely isolated state
+
+	 - Unlike props, state is fully private to the component declarng it. The parent component cant change it. This lets you add state to any component or remove it without imapacting the rest of the components

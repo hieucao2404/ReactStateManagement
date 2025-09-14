@@ -1,0 +1,58 @@
+
+VII/ STATE in REACT
+ 1. What we need to learn
+  - Sate is the most import concept in React
+  - How to use in pratice
+   + useSate
+   + useReducer
+   + Context API
+  - Thing about state
+   + When to use
+   + Where to place
+   + Types of state
+
+ 2. What is State
+  - Date that a component can hold overtie, necessary for information that it needs to remember throughout the app'cycle
+  --> Component's memmory
+
+  - Piece of state/state variable is one single variable in a component
+
+  - Updating component state triggers React to re-render the component 
+  - Keep the UI sync with data
+
+  State allows devs to:
+   + Update the component's view (by re-rendering it)
+   + Persist local variales between renders
+   --> State is a tool. Mastering state will unlock the power of React development
+
+  3. The Mechanics of State in React
+  - We dont do direct DOM manipulations -> How is a component view updated then? -> In React, a view is updated by re-rendering the component
+
+  RENDER/RE-REDER -> UPDATED VIEW
+  State is perseved throughout -reders
+  Update state -> render/re-reder component -> updated view for the component
+
+  *REACT REACTS TO STATE CHANGES BY RE-RENDERING THE UI 
+
+
+  4. Updating State Based on Current State.
+   - Pass a callback function not value
+
+  5. Pratical guidelines
+   - One Component, one State
+    + Each componet has and manages its own state, no matter how many times we render the same component
+
+   - UI as a Function of State
+    + UI = f(state )::
+    + React application is fundamentally is all about change the state overtime correctly
+    + With state, we view UI as a reflection of data changing over time
+    + We des that reflection of data using state, event handlers, and JSX
+
+   - Reference
+    + Use a state variable for any data that the component should keep track of ("remember") over time. This is data that will change at soem point. In vanilla JS, that's let variable, or an [] or {}
+    + Whenever you wnat something in the component to be dynamic, crate a piece of state related to that "thing", and update the state when the "thing" should change (aks "be dynamic")
+      Ex: A modal window can be open or closes. So we create a state variable isOpen that tracks wheter the modal is open or not. On isOpen = true we display the window, on isOpen = false we hide it
+    + If you want to change the way a component looks, or the data it displays, update its state, This usually happens in an event handler function.
+    + When building a component, imagine its view as a reflection of state chaging over time
+    + For data that should not trigger component re-renders, do not use state. use a regular varible instead
+
